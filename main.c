@@ -1,26 +1,30 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 /* run this program using the console pauser or add your own getch, system("pause") or input loop */
 
-int main(int argc, char *argv[]) {
+struct Book {
+	int number;
+	char title[20]; // changed
+};
+
+int main(void) {
+	struct Book*p;
 	
-	void main(void) {
-		
-		char *pc = NULL; // poynter pc
-		int i = 0;
-		
-		pc = (char*)malloc(100*sizeof(char)); // malloc allocate 100byte
-		if(pc == NULL) {
-			printf("메모리 할당 오류\n");
-			exit(1); // end program
-		}
-		for (i=0; i<26; i++) {
-			pc[i] = 'a' +i;
-		}
-		pc[i] = 0;
-		printf("%s\n", pc);
-		free(pc);
+	p = (struct Book*)malloc(2*sizeof(struct Book));
+	
+	if(p == NULL) {
+		printf("메모리 할당 오류\n");
+		return 1; // for error
 	}
-	return 0;
+	
+	p->number = 1;
+	strcpy(p->title, "Programming");
+	
+	(p+1)->number = 2;
+	strcpy((p+1)->title, "Electronics");
+	
+	free(p);
+	return 0; // for success
 }
